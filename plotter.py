@@ -19,10 +19,10 @@ class Plotter:
         #  ----------------- geometry of the plotter -----------------
         bounds: tuple = [-10, 5, 10, 15],  # the maximum rectangular drawing area
         #  ----------------- naive calculation values -----------------
-        servo_1_parked_pw: int = 1500,  # pulse-widths when parked
-        servo_2_parked_pw: int = 1500,
-        servo_1_degree_ms: float = -10,  # milliseconds pulse-width per degree
-        servo_2_degree_ms: float = 10,
+        servo_1_parked_pw: int = 1500000,  # pulse-widths when parked
+        servo_2_parked_pw: int = 1500000,
+        servo_1_degree_ms: float = -10000,  # milliseconds pulse-width per degree
+        servo_2_degree_ms: float = 10000,
         servo_1_parked_angle: float = 0,  # the arm angle in the parked position
         servo_2_parked_angle: float = 0,
         #  ----------------- hysteresis -----------------
@@ -144,8 +144,8 @@ class Plotter:
                 self.wait = wait if wait is not None else 0
 
         # create the pen object
-        pw_up = pw_up or 1400
-        pw_down = pw_down or 1600
+        pw_up = pw_up or 1400000
+        pw_down = pw_down or 1600000
 
         self.pen = Pen(bg=self, pw_up=pw_up, pw_down=pw_down, virtual=self.virtual)
 
@@ -644,13 +644,13 @@ class Plotter:
         if self.virtual:
 
             if pw_1:
-                if 500 < pw_1 < 2500:
+                if 500000 < pw_1 < 2500000:
                     self.virtual_pw_1 = int(pw_1)
                 else:
                     raise ValueError
 
             if pw_2:
-                if 500 < pw_2 < 2500:
+                if 500000 < pw_2 < 2500000:
                     self.virtual_pw_2 = int(pw_2)
                 else:
                     raise ValueError
@@ -893,7 +893,7 @@ clockwise and anti-clockwise. Press "0" to exit.
 
 
 class Pen:
-    def __init__(self, bg, pw_up=1700, pw_down=1300, pin=18, transition_time=0.25, virtual=False):
+    def __init__(self, bg, pw_up=1700000, pw_down=1300000, pin=18, transition_time=0.25, virtual=False):
 
         self.bg = bg
         self.pin = pin

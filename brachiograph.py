@@ -20,10 +20,10 @@ class BrachioGraph(Plotter):
         inner_arm: float = 8,  # the lengths of the arms
         outer_arm: float = 8,
         #  ----------------- naive calculation values -----------------
-        servo_1_parked_pw: int = 1500,  # pulse-widths when parked
-        servo_2_parked_pw: int = 1500,
-        servo_1_degree_ms: int = -10,  # milliseconds pulse-width per degree
-        servo_2_degree_ms: int = 10,  # reversed for the mounting of the shoulder servo
+        servo_1_parked_pw: int = 1500000,  # pulse-widths when parked
+        servo_2_parked_pw: int = 1500000,
+        servo_1_degree_ms: int = -10000,  # milliseconds pulse-width per degree
+        servo_2_degree_ms: int = 10000,  # reversed for the mounting of the shoulder servo
         servo_1_parked_angle: int = -90,  # the arm angle in the parked position
         servo_2_parked_angle: int = 90,
         #  ----------------- hysteresis -----------------
@@ -36,8 +36,8 @@ class BrachioGraph(Plotter):
         servo_1_angle_pws_bidi: tuple = [],  # bi-directional pulse-widths for various angles
         servo_2_angle_pws_bidi: tuple = [],
         #  ----------------- the pen -----------------
-        pw_up: int = 1500,  # pulse-widths for pen up/down
-        pw_down: int = 1100,
+        pw_up: int = 1500000,  # pulse-widths for pen up/down
+        pw_down: int = 1100000,
         #  ----------------- physical control -----------------
         wait: float = None,  # default wait time between operations
         angular_step: float = None,  # default step of the servos in degrees
