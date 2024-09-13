@@ -83,8 +83,8 @@ Initialisation
         bottom boundaries. Defaults to usable values in the default subclass definitions.
     :param int servo_1_parked_pw: The pulse-width of servo 1 when parked.
     :param int servo_2_parked_pw: The pulse-width of servo 2 when parked.
-    :param float servo_1_degree_ms: Milliseconds pulse-width difference per degree of movement.
-    :param float servo_2_degree_ms: Milliseconds pulse-width difference per degree of movement.
+    :param float servo_1_degree_ns: Nanoseconds pulse-width difference per degree of movement.
+    :param float servo_2_degree_ns: Nanoseconds pulse-width difference per degree of movement.
     :param float servo_1_parked_angle: The arm angle in the parked position.
     :param float servo_2_parked_angle: The arm angle in the parked position.
     :param float hysteresis_correction_1:

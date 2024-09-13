@@ -22,8 +22,8 @@ class BrachioGraph(Plotter):
         #  ----------------- naive calculation values -----------------
         servo_1_parked_pw: int = 1500000,  # pulse-widths when parked
         servo_2_parked_pw: int = 1500000,
-        servo_1_degree_ms: int = -10000,  # milliseconds pulse-width per degree
-        servo_2_degree_ms: int = 10000,  # reversed for the mounting of the shoulder servo
+        servo_1_degree_ns: int = -10000,  # milliseconds pulse-width per degree
+        servo_2_degree_ns: int = 10000,  # reversed for the mounting of the shoulder servo
         servo_1_parked_angle: int = -90,  # the arm angle in the parked position
         servo_2_parked_angle: int = 90,
         #  ----------------- hysteresis -----------------
@@ -56,8 +56,8 @@ class BrachioGraph(Plotter):
             bounds=bounds,
             servo_1_parked_pw=servo_1_parked_pw,
             servo_2_parked_pw=servo_2_parked_pw,
-            servo_1_degree_ms=servo_1_degree_ms,
-            servo_2_degree_ms=servo_2_degree_ms,
+            servo_1_degree_ns=servo_1_degree_ns,
+            servo_2_degree_ns=servo_2_degree_ns,
             servo_1_parked_angle=servo_1_parked_angle,
             servo_2_parked_angle=servo_2_parked_angle,
             hysteresis_correction_1=hysteresis_correction_1,

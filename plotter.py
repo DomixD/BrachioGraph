@@ -21,8 +21,8 @@ class Plotter:
         #  ----------------- naive calculation values -----------------
         servo_1_parked_pw: int = 1500000,  # pulse-widths when parked
         servo_2_parked_pw: int = 1500000,
-        servo_1_degree_ms: float = -10000,  # milliseconds pulse-width per degree
-        servo_2_degree_ms: float = 10000,
+        servo_1_degree_ns: float = -10000,  # milliseconds pulse-width per degree
+        servo_2_degree_ns: float = 10000,
         servo_1_parked_angle: float = 0,  # the arm angle in the parked position
         servo_2_parked_angle: float = 0,
         #  ----------------- hysteresis -----------------
@@ -68,7 +68,7 @@ class Plotter:
         # approximation based on a centre of travel of 1500µS and 10µS per degree
 
         self.servo_1_parked_pw = servo_1_parked_pw
-        self.servo_1_degree_ms = servo_1_degree_ms
+        self.servo_1_degree_ns = servo_1_degree_ns
         self.servo_1_parked_angle = servo_1_parked_angle
         self.hysteresis_correction_1 = hysteresis_correction_1
 
@@ -92,7 +92,7 @@ class Plotter:
             self.angles_to_pw_1 = self.naive_angles_to_pulse_widths_1
 
         self.servo_2_parked_pw = servo_2_parked_pw
-        self.servo_2_degree_ms = servo_2_degree_ms
+        self.servo_2_degree_ns = servo_2_degree_ns
         self.servo_2_parked_angle = servo_2_parked_angle
         self.hysteresis_correction_2 = hysteresis_correction_2
 
@@ -504,11 +504,11 @@ class Plotter:
 
     def naive_angles_to_pulse_widths_1(self, angle):
         """A rule-of-thumb calculation of pulse-width for the desired servo angle"""
-        return (angle - self.servo_1_parked_angle) * self.servo_1_degree_ms + self.servo_1_parked_pw
+        return (angle - self.servo_1_parked_angle) * self.servo_1_degree_ns + self.servo_1_parked_pw
 
     def naive_angles_to_pulse_widths_2(self, angle):
         """A rule-of-thumb calculation of pulse-width for the desired servo angle"""
-        return (angle - self.servo_2_parked_angle) * self.servo_2_degree_ms + self.servo_2_parked_pw
+        return (angle - self.servo_2_parked_angle) * self.servo_2_degree_ns + self.servo_2_parked_pw
 
     # ----------------- line-processing methods -----------------
 

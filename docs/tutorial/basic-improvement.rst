@@ -92,8 +92,8 @@ Do a similar check with the outer arm. Add the values you discovered to the defi
         servo_2_parked_pw=1450,
         hysteresis_correction_1=10,
         hysteresis_correction_2=10,
-        servo_1_degree_ms=-9.8,
-        servo_2_degree_ms=10.1,
+        servo_1_degree_ns=-9800,
+        servo_2_degree_ns=10100,
         )
 
 **Notice that the value for servo 1 is negative.** (They're different because one of the servos is mounted upside-down.

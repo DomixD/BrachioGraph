@@ -153,8 +153,8 @@ that you have been working with in ``custom.py``:
         # servo_2_parked_pw=1450,
         # hysteresis_correction_1=10,
         # hysteresis_correction_2=10,
-        # servo_1_degree_ms=-9.8,
-        # servo_2_degree_ms=10.1,
+        # servo_1_degree_ns=-9800,
+        # servo_2_degree_ns=10100,
         servo_1_angle_pws_bidi = {
             # add all the values here
         },
