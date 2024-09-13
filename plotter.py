@@ -6,7 +6,7 @@ import pprint
 import math
 import readchar
 import tqdm
-import pigpio
+from machine import Pin, PWM
 import numpy
 
 
@@ -126,14 +126,18 @@ class Plotter:
 
         else:
             try:
-                pigpio.exceptions = False
-                # instantiate this Raspberry Pi as a pigpio.pi() instance
-                self.rpi = pigpio.pi()
+                # instantiate this Raspberry Pi Pico as a pwm instance
                 # the pulse frequency should be no higher than 100Hz - higher values could
-                # (supposedly) # damage the servos
-                self.rpi.set_PWM_frequency(14, 50)
-                self.rpi.set_PWM_frequency(15, 50)
-                pigpio.exceptions = True
+                # (supposedly) damage the servos
+
+                # shoulder servo
+                self.pwm1 = PWM(Pin(14))
+                self.pwm1.freq(50)
+
+                #elbow servo
+                self.pwm2 = PWM(Pin(15))
+                self.pwm2.freq(50)
+
                 self.virtual = False
                 # by default we use a wait factor of 0.01 seconds for better control
                 self.wait = wait if wait is not None else 0.01
@@ -658,9 +662,9 @@ class Plotter:
         else:
 
             if pw_1:
-                self.rpi.set_servo_pulsewidth(14, pw_1)
+                self.pwm1.duty_ns(pw_1)
             if pw_2:
-                self.rpi.set_servo_pulsewidth(15, pw_2)
+                self.pwm2.duty_ns(pw_2)
 
     def get_pulse_widths(self):
         """Returns the actual pulse-widths values; if in virtual mode, returns the nominal values -
@@ -674,8 +678,8 @@ class Plotter:
 
         else:
 
-            actual_pulse_width_1 = self.rpi.get_servo_pulsewidth(14)
-            actual_pulse_width_2 = self.rpi.get_servo_pulsewidth(15)
+            actual_pulse_width_1 = self.pwm1.duty_ns()
+            actual_pulse_width_2 = self.pwm2.duty_ns()
 
         return (actual_pulse_width_1, actual_pulse_width_2)
 
@@ -688,8 +692,11 @@ class Plotter:
             print("Going quiet")
 
         else:
-            for servo in servos:
-                self.rpi.set_servo_pulsewidth(servo, 0)
+            self.pwm1.duty_ns(0)
+            self.pwm2.duty_ns(0)
+            self.pwm3.duty_ns(0)
+            #for servo in servos:
+            #    self.rpi.set_servo_pulsewidth(servo, 0)
 
     # ----------------- manual driving methods -----------------
 
@@ -908,8 +915,8 @@ class Pen:
 
         else:
 
-            self.rpi = pigpio.pi()
-            self.rpi.set_PWM_frequency(self.pin, 50)
+            self.pwm3 = PWM(Pin(self.pin))
+            self.pwm3.freq(50)
 
         self.up()
 
@@ -957,7 +964,7 @@ class Pen:
 
         for i in range(abs(diff)):
             angle += length_of_step
-            self.rpi.set_servo_pulsewidth(self.pin, angle)
+            self.pwm3.duty_ns(angle)
             sleep(0.001)
 
     # for convenience, a quick way to set pen motor pulse-widths
@@ -967,7 +974,7 @@ class Pen:
             self.virtual_pw = pulse_width
 
         else:
-            self.rpi.set_servo_pulsewidth(self.pin, pulse_width)
+            self.pwm3.duty_ns(pulse_width)
 
     # for convenience, a quick way to get pen motor pulse-widths
     def get_pw(self):
@@ -976,4 +983,4 @@ class Pen:
             return self.virtual_pw
 
         else:
-            return self.rpi.get_servo_pulsewidth(self.pin)
+            return  self.pwm3.duty_ns()
