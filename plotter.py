@@ -5,7 +5,6 @@ import json
 import pprint
 import math
 import readchar
-import tqdm
 from machine import Pin, PWM
 import numpy
 
@@ -214,7 +213,7 @@ class Plotter:
 
         lines = self.rotate_and_scale_lines(lines=lines, bounds=bounds, flip=True)
 
-        for line in tqdm.tqdm(lines, desc="Lines", leave=False):
+        for line in lines:
             x, y = line[0]
 
             # only if we are not within 1mm of the start of the line, lift pen and go there
@@ -241,7 +240,7 @@ class Plotter:
 
         self.xy(bounds[0], bounds[1], angular_step, wait, resolution)
 
-        for r in tqdm.tqdm(tqdm.trange(repeat), desc="Iteration", leave=False):
+        for r in range(repeat):
 
             if not reverse:
 
@@ -378,10 +377,6 @@ class Plotter:
 
             no_of_steps = round(length / resolution) or 1
 
-            if no_of_steps < 100:
-                disable_tqdm = True
-            else:
-                disable_tqdm = False
 
             (length_of_step_x, length_of_step_y) = (x_length / no_of_steps, y_length / no_of_steps)
 
@@ -420,16 +415,10 @@ class Plotter:
 
         no_of_steps = int(max(map(abs, (diff_1 / angular_step, diff_2 / angular_step)))) or 1
 
-        if no_of_steps < 100:
-            disable_tqdm = True
-        else:
-            disable_tqdm = False
 
         (length_of_step_1, length_of_step_2) = (diff_1 / no_of_steps, diff_2 / no_of_steps)
 
-        for step in tqdm.tqdm(
-            range(no_of_steps), desc="Progress", leave=False, disable=disable_tqdm
-        ):
+        for step in range(no_of_steps):
 
             self.angle_1 = self.angle_1 + length_of_step_1
             self.angle_2 = self.angle_2 + length_of_step_2
