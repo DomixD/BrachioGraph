@@ -3,7 +3,6 @@
 from time import sleep
 import readchar
 import math
-import numpy
 from plotter import Plotter
 
 

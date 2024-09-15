@@ -6,7 +6,7 @@ import pprint
 import math
 import readchar
 from machine import Pin, PWM
-import numpy
+import micronumpy
 
 
 class Plotter:
@@ -79,12 +79,12 @@ class Plotter:
                 pw = (pws["acw"] + pws["cw"]) / 2
                 servo_1_angle_pws.append([angle, pw])
                 differences.append((pws["acw"] - pws["cw"]) / 2)
-            self.hysteresis_correction_1 = numpy.mean(differences)
+            self.hysteresis_correction_1 = micronumpy.mean(differences)
 
         if servo_1_angle_pws:
-            servo_1_array = numpy.array(servo_1_angle_pws)
-            self.angles_to_pw_1 = numpy.poly1d(
-                numpy.polyfit(servo_1_array[:, 0], servo_1_array[:, 1], 3)
+            servo_1_array = servo_1_angle_pws
+            self.angles_to_pw_1 = micronumpy.Poly1d(
+                micronumpy.polyfit([row[0] for row in servo_1_array], [row[1] for row in servo_1_array], 3)
             )
 
         else:
@@ -103,12 +103,12 @@ class Plotter:
                 pw = (pws["acw"] + pws["cw"]) / 2
                 servo_2_angle_pws.append([angle, pw])
                 differences.append((pws["acw"] - pws["cw"]) / 2)
-            self.hysteresis_correction_2 = numpy.mean(differences)
+            self.hysteresis_correction_2 = micronumpy.mean(differences)
 
         if servo_2_angle_pws:
-            servo_2_array = numpy.array(servo_2_angle_pws)
-            self.angles_to_pw_2 = numpy.poly1d(
-                numpy.polyfit(servo_2_array[:, 0], servo_2_array[:, 1], 3)
+            servo_2_array = servo_2_angle_pws
+            self.angles_to_pw_2 = micronumpy.Poly1d(
+                micronumpy.polyfit([row[0] for row in servo_2_array], [row[1] for row in servo_2_array], 3)
             )
 
         else:
