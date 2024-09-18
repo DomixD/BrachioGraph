@@ -16,7 +16,7 @@ Almost everything required can be found in a desk or kitchen drawer. The entire 
 Raspberry Pi Pico2
 ------------------
 
-.. image:: docs/images/pico2_pinout.png
+.. image:: docs/images/pico_2_pinout.png
     :width: 100%
 
 .. list-table:: Wiring up the Brachiograph
