@@ -20,7 +20,7 @@ Raspberry Pi Pico2
     :width: 100%
 
 .. list-table:: Wiring up the Brachiograph
-   :widths: 25 25
+   :widths: 25 25 25
    :header-rows: 1
 
    * - Servo
@@ -36,7 +36,7 @@ Raspberry Pi Pico2
      - GP 16
      - 21
    * - Elbow
-     - GP17
+     - GP 17
      - 22
    * - Pen
      - GP 18
