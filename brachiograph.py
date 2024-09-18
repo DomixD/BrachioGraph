@@ -1,7 +1,6 @@
 # coding=utf-8
 
 from time import sleep
-import readchar
 import math
 from plotter import Plotter
 

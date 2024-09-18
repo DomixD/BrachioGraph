@@ -1,9 +1,3 @@
-#class MicroNumPy:
-    # def __init__(self, name, gender):
-    #     # Zuweisung der Argumente zu Attributen der Instanz
-    #     self.name = name
-    #     self.gender = gender
-
 # numpy.polyfit(servo_1_array[:, 0], servo_1_array[:, 1], 3)
 # polyfit([row[0] for row in servo_1_array], [row[1] for row in servo_1_array], 3)
 

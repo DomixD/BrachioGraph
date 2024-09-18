@@ -4,7 +4,7 @@ from time import sleep, monotonic
 import json
 import pprint
 import math
-import readchar
+#import readchar
 from machine import Pin, PWM
 import micronumpy
 
@@ -687,133 +687,133 @@ class Plotter:
             #for servo in servos:
             #    self.rpi.set_servo_pulsewidth(servo, 0)
 
-    # ----------------- manual driving methods -----------------
+#     # ----------------- manual driving methods -----------------
 
-    def capture_pws(self):
-        """
-        Helps capture angle/pulse-width data for the servos, as a dictionary to be used
-        in a Plotter definition.
-        """
+#     def capture_pws(self):
+#         """
+#         Helps capture angle/pulse-width data for the servos, as a dictionary to be used
+#         in a Plotter definition.
+#         """
 
-        print(
-            """
-Drive each servo over a wide range of movement (do not exceed a pulse-width
-range ~600 to ~2400). To capture the pulse-width value for a particular angle,
-press "c", then enter the angle. For each angle, do this in both directions,
-clockwise and anti-clockwise. Press "0" to exit.
-        """
-        )
+#         print(
+#             """
+# Drive each servo over a wide range of movement (do not exceed a pulse-width
+# range ~600 to ~2400). To capture the pulse-width value for a particular angle,
+# press "c", then enter the angle. For each angle, do this in both directions,
+# clockwise and anti-clockwise. Press "0" to exit.
+#         """
+#         )
 
-        pw_1, pw_2 = self.get_pulse_widths()
-        pen_pw = self.pen.get_pw()
+#         pw_1, pw_2 = self.get_pulse_widths()
+#         pen_pw = self.pen.get_pw()
 
-        last_action = values = None
-        pws1_dict = {}
-        pws2_dict = {}
-        pen_pw_dict = {}
+#         last_action = values = None
+#         pws1_dict = {}
+#         pws2_dict = {}
+#         pen_pw_dict = {}
 
-        print("0 to exit, c to capture a value, v to show captured values")
-        print("Shoulder a: -10  A: -1   s: +10  S: +1")
-        print("Elbow    k: -10  K: -1   l: +10  L: +1")
-        print("Pen      z: -10          x: +10")
+#         print("0 to exit, c to capture a value, v to show captured values")
+#         print("Shoulder a: -10  A: -1   s: +10  S: +1")
+#         print("Elbow    k: -10  K: -1   l: +10  L: +1")
+#         print("Pen      z: -10          x: +10")
 
-        controls = {
-            "a": [-10, 0, 0, "acw"],
-            "A": [-1, 0, 0, "acw"],
-            "s": [+10, 0, 0, "cw"],
-            "S": [+1, 0, 0, "cw"],
-            "k": [0, -10, 0, "acw"],
-            "K": [0, -1, 0, "acw"],
-            "l": [0, +10, 0, "cw"],
-            "L": [0, +1, 0, "cw"],
-            "z": [0, 0, -10],
-            "x": [0, 0, +10],
-        }
+#         controls = {
+#             "a": [-10, 0, 0, "acw"],
+#             "A": [-1, 0, 0, "acw"],
+#             "s": [+10, 0, 0, "cw"],
+#             "S": [+1, 0, 0, "cw"],
+#             "k": [0, -10, 0, "acw"],
+#             "K": [0, -1, 0, "acw"],
+#             "l": [0, +10, 0, "cw"],
+#             "L": [0, +1, 0, "cw"],
+#             "z": [0, 0, -10],
+#             "x": [0, 0, +10],
+#         }
 
-        while True:
-            # move the arms if commanded
-            key = readchar.readchar()
-            values = controls.get(key)
+#         while True:
+#             # move the arms if commanded
+#             key = readchar.readchar()
+#             values = controls.get(key)
 
-            if values:
+#             if values:
 
-                if values[0] or values[1] or values[2]:
-                    previous_pw_1, previous_pw_2, previous_pen_pw = pw_1, pw_2, pen_pw
-                    pw_1 += values[0]
-                    pw_2 += values[1]
-                    pen_pw += values[2]
+#                 if values[0] or values[1] or values[2]:
+#                     previous_pw_1, previous_pw_2, previous_pen_pw = pw_1, pw_2, pen_pw
+#                     pw_1 += values[0]
+#                     pw_2 += values[1]
+#                     pen_pw += values[2]
 
-                    print(f"shoulder: {pw_1}, elbow: {pw_2}, pen: {pen_pw}")
+#                     print(f"shoulder: {pw_1}, elbow: {pw_2}, pen: {pen_pw}")
 
-                    self.set_pulse_widths(pw_1, pw_2)
-                    self.pen.pw(pen_pw)
+#                     self.set_pulse_widths(pw_1, pw_2)
+#                     self.pen.pw(pen_pw)
 
-                    last_action = values
+#                     last_action = values
 
-            elif key == "0" or key == "v":
-                # exit and print results
-                print("servo_1_angle_pws_bidi =")
-                pprint.pp(pws1_dict, sort_dicts=True, indent=4)
-                print("servo_2_angle_pws_bidi =")
-                pprint.pp(pws2_dict, sort_dicts=True, indent=4)
-                print("Pen pulse-widths =")
-                pprint.pp(pen_pw_dict)
+#             elif key == "0" or key == "v":
+#                 # exit and print results
+#                 print("servo_1_angle_pws_bidi =")
+#                 pprint.pp(pws1_dict, sort_dicts=True, indent=4)
+#                 print("servo_2_angle_pws_bidi =")
+#                 pprint.pp(pws2_dict, sort_dicts=True, indent=4)
+#                 print("Pen pulse-widths =")
+#                 pprint.pp(pen_pw_dict)
 
-                if key == "0":
-                    return
+#                 if key == "0":
+#                     return
 
-            elif key == "c":
-                # capture a value
-                if not last_action:
-                    print("Drive the servos to a new position first")
+#             elif key == "c":
+#                 # capture a value
+#                 if not last_action:
+#                     print("Drive the servos to a new position first")
 
-                # add the values - if any - to the dictionaries
-                elif last_action[0]:
-                    angle = int(input("Enter the angle of the inner arm: "))
-                    pws1_dict.setdefault(angle, {})[last_action[3]] = pw_1
+#                 # add the values - if any - to the dictionaries
+#                 elif last_action[0]:
+#                     angle = int(input("Enter the angle of the inner arm: "))
+#                     pws1_dict.setdefault(angle, {})[last_action[3]] = pw_1
 
-                    print(pws1_dict)
+#                     print(pws1_dict)
 
-                elif last_action[1]:
-                    angle = int(input("Enter the angle of the outer arm: "))
-                    pws2_dict.setdefault(angle, {})[last_action[3]] = pw_2
+#                 elif last_action[1]:
+#                     angle = int(input("Enter the angle of the outer arm: "))
+#                     pws2_dict.setdefault(angle, {})[last_action[3]] = pw_2
 
-                    print(pws2_dict)
+#                     print(pws2_dict)
 
-                elif last_action[2]:
-                    state = input("Enter the state of the pen ([u]p, [d]own):")
-                    pen_pw_dict[state] = pen_pw
+#                 elif last_action[2]:
+#                     state = input("Enter the state of the pen ([u]p, [d]own):")
+#                     pen_pw_dict[state] = pen_pw
 
-                    print(pen_pw)
+#                     print(pen_pw)
 
-    def drive_xy(self):
-        """Control the x/y position using the keyboard."""
+#     def drive_xy(self):
+#         """Control the x/y position using the keyboard."""
 
-        while True:
-            key = readchar.readchar()
+#         while True:
+#             key = readchar.readchar()
 
-            if key == "0":
-                return
-            elif key == "a":
-                self.x = self.x - 1
-            elif key == "s":
-                self.x = self.x + 1
-            elif key == "A":
-                self.x = self.x - 0.1
-            elif key == "S":
-                self.x = self.x + 0.1
-            elif key == "k":
-                self.y = self.y - 1
-            elif key == "l":
-                self.y = self.y + 1
-            elif key == "K":
-                self.y = self.y - 0.1
-            elif key == "L":
-                self.y = self.y + 0.1
+#             if key == "0":
+#                 return
+#             elif key == "a":
+#                 self.x = self.x - 1
+#             elif key == "s":
+#                 self.x = self.x + 1
+#             elif key == "A":
+#                 self.x = self.x - 0.1
+#             elif key == "S":
+#                 self.x = self.x + 0.1
+#             elif key == "k":
+#                 self.y = self.y - 1
+#             elif key == "l":
+#                 self.y = self.y + 1
+#             elif key == "K":
+#                 self.y = self.y - 0.1
+#             elif key == "L":
+#                 self.y = self.y + 0.1
 
-            print(self.x, self.y)
+#             print(self.x, self.y)
 
-            self.xy(self.x, self.y)
+#             self.xy(self.x, self.y)
 
     # ----------------- reporting methods -----------------
 
