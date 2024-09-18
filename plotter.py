@@ -130,11 +130,11 @@ class Plotter:
                 # (supposedly) damage the servos
 
                 # shoulder servo
-                self.pwm1 = PWM(Pin(14))
+                self.pwm1 = PWM(Pin(16))
                 self.pwm1.freq(50)
 
                 #elbow servo
-                self.pwm2 = PWM(Pin(15))
+                self.pwm2 = PWM(Pin(17))
                 self.pwm2.freq(50)
 
                 self.virtual = False
