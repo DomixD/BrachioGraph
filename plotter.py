@@ -1,6 +1,7 @@
 """Contains a base class for a drawing robot."""
 
-from time import sleep, monotonic
+from time import sleep
+from micronumpy import monotonic
 import json
 import pprint
 import math

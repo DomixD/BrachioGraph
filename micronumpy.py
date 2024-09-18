@@ -1,3 +1,5 @@
+import time
+
 # numpy.polyfit(servo_1_array[:, 0], servo_1_array[:, 1], 3)
 # polyfit([row[0] for row in servo_1_array], [row[1] for row in servo_1_array], 3)
 
@@ -52,6 +54,8 @@ def mean(data):
     # Berechnen des Mittelwerts
     return total / count if count != 0 else 0
 
+def monotonic():
+    return time.ticks_ms() / 1000  # Umrechnung von Millisekunden in Sekunden
 
 class Poly1d:
     def __init__(self, *coeffs):
