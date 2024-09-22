@@ -2,7 +2,7 @@
 
 from time import sleep
 from micronumpy import monotonic
-import json
+import ujson
 import pprint
 import math
 #import readchar
@@ -194,7 +194,7 @@ class Plotter:
         bounds = bounds or self.bounds
 
         with open(filename, "r") as line_file:
-            lines = json.load(line_file)
+            lines = ujson.load(line_file)
 
         self.plot_lines(lines, bounds, angular_step, wait, resolution, flip=True)
 
@@ -652,9 +652,9 @@ class Plotter:
         else:
 
             if pw_1:
-                self.pwm1.duty_ns(pw_1)
+                self.pwm1.duty_ns(int(pw_1))
             if pw_2:
-                self.pwm2.duty_ns(pw_2)
+                self.pwm2.duty_ns(int(pw_2))
 
     def get_pulse_widths(self):
         """Returns the actual pulse-widths values; if in virtual mode, returns the nominal values -
@@ -951,10 +951,11 @@ class Pen:
         diff = end - start
         angle = start
         length_of_step = diff / abs(diff)
+        length_of_step = length_of_step*1000        
 
-        for i in range(abs(diff)):
+        for i in range(0,abs(diff), 1000):
             angle += length_of_step
-            self.pwm3.duty_ns(angle)
+            self.pwm3.duty_ns(int(angle))
             sleep(0.001)
 
     # for convenience, a quick way to set pen motor pulse-widths
@@ -964,7 +965,7 @@ class Pen:
             self.virtual_pw = pulse_width
 
         else:
-            self.pwm3.duty_ns(pulse_width)
+            self.pwm3.duty_ns(int(pulse_width))
 
     # for convenience, a quick way to get pen motor pulse-widths
     def get_pw(self):
